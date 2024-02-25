@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PostCard from "./PostCard";
 import { Post } from "@/types/Post";
 import { getPosts } from "@/actions/getPosts";
-import { POSTS_PER_PAGE } from "@/config/Constants";
+import { POSTS_PER_PAGE } from "@/config/constants";
 
 type PostListProps = {
   initialPosts: Post[];

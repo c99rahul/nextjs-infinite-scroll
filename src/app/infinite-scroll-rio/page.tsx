@@ -2,7 +2,7 @@
 
 import PostListInfiniteRIO from "@/components/PostListInfiniteRIO";
 import { getPosts } from "@/actions/getPosts";
-import { POSTS_PER_PAGE } from "@/config/Constants";
+import { POSTS_PER_PAGE } from "@/config/constants";
 
 export default async function InfiniteScroll() {
   const initialPosts = await getPosts(0, POSTS_PER_PAGE);

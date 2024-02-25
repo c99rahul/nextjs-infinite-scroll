@@ -6,7 +6,7 @@ import { getPosts } from "@/actions/getPosts";
 import { Post } from "@/types/Post";
 import PostCard from "./PostCard";
 import { useInView } from "react-intersection-observer";
-import { POSTS_PER_PAGE } from "@/config/Constants";
+import { POSTS_PER_PAGE } from "@/config/constants";
 
 type PostListProps = {
   initialPosts: Post[];
