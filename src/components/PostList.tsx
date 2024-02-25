@@ -19,9 +19,11 @@ export default function PostList({ initialPosts }: PostListProps) {
   const loadMorePosts = async () => {
     if (hasMoreData) {
       const apiPosts = await getPosts(offset, POSTS_PER_PAGE);
+
       if (apiPosts.length < POSTS_PER_PAGE) {
-        setHasMoreData(false); // No more posts to load
+        setHasMoreData(false);
       }
+
       setPosts((prevPosts) => [...prevPosts, ...apiPosts]);
       setOffset((prevOffset) => prevOffset + POSTS_PER_PAGE);
     }
@@ -35,14 +37,16 @@ export default function PostList({ initialPosts }: PostListProps) {
         ))}
       </div>
       <div className="text-center mt-5">
-        {(hasMoreData && (
+        {hasMoreData ? (
           <button
             className="px-4 py-3 bg-slate-500 hover:bg-slate-600 text-slate-50 rounded-md"
             onClick={loadMorePosts}
           >
             Load More Posts
           </button>
-        )) || <p className="text-slate-600">No more posts to load</p>}
+        ) : (
+          <p className="text-slate-600">No more posts to load</p>
+        )}
       </div>
     </>
   );

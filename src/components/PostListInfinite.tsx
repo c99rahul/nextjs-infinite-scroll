@@ -15,7 +15,7 @@ export default function PostListInfinite({ initialPosts }: PostListProps) {
   const [offset, setOffset] = useState(POSTS_PER_PAGE);
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [hasMoreData, setHasMoreData] = useState(true);
-  const loadingElement = useRef(null);
+  const loaderElement = useRef(null);
 
   const loadMorePosts = async () => {
     if (hasMoreData) {
@@ -44,13 +44,13 @@ export default function PostListInfinite({ initialPosts }: PostListProps) {
       { threshold: 0.5 }
     );
 
-    if (loadingElement.current) {
-      observer.observe(loadingElement.current);
+    if (loaderElement.current) {
+      observer.observe(loaderElement.current);
     }
 
     return () => {
-      if (loadingElement.current) {
-        observer.unobserve(loadingElement.current);
+      if (loaderElement.current) {
+        observer.unobserve(loaderElement.current);
       }
     };
   }, [hasMoreData, offset]);
@@ -65,7 +65,7 @@ export default function PostListInfinite({ initialPosts }: PostListProps) {
 
       <div className="text-center text-slate-600 mt-5">
         {hasMoreData ? (
-          <div ref={loadingElement}>Loading...</div>
+          <div ref={loaderElement}>Loading...</div>
         ) : (
           <p className="text-slate-600">No more posts to load</p>
         )}

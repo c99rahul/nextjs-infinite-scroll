@@ -11,9 +11,11 @@ export default async function Home() {
         <h1 className="text-center text-2xl mb-2">
           Loading posts asynchronously
         </h1>
+
         <h3 className="text-center mb-5 text-slate-600">
           Just on a button click
         </h3>
+
         <PostList initialPosts={initialPosts} />
       </div>
     </>
