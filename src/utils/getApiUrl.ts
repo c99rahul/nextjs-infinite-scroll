@@ -1,3 +1,5 @@
+// utils/getApirUrl.ts
+
 import { API_URL } from "@/config/constants";
 
 export const getApiUrl = (offset: number, limit: number): string => {

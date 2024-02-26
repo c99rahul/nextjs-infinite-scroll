@@ -1,3 +1,5 @@
+// utils/handleResponseError.ts
+
 export async function handleError(response: Response): Promise<Error> {
   const errorText = await response.text(); // Read the response body if possible
   const status = response.status;
