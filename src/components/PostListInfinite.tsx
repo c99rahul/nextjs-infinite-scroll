@@ -15,13 +15,13 @@ export default function PostListInfinite({ initialPosts }: PostListProps) {
   const [offset, setOffset] = useState(POSTS_PER_PAGE);
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [hasMoreData, setHasMoreData] = useState(true);
-  const loaderElement = useRef(null);
+  const scrollTrigger = useRef(null);
 
   const loadMorePosts = async () => {
     if (hasMoreData) {
       const apiPosts = await getPosts(offset, POSTS_PER_PAGE);
 
-      if (apiPosts.length < POSTS_PER_PAGE) {
+      if (!apiPosts.length) {
         setHasMoreData(false);
       }
 
@@ -44,16 +44,16 @@ export default function PostListInfinite({ initialPosts }: PostListProps) {
       { threshold: 0.5 }
     );
 
-    if (loaderElement.current) {
-      observer.observe(loaderElement.current);
+    if (scrollTrigger.current) {
+      observer.observe(scrollTrigger.current);
     }
 
     return () => {
-      if (loaderElement.current) {
-        observer.unobserve(loaderElement.current);
+      if (scrollTrigger.current) {
+        observer.unobserve(scrollTrigger.current);
       }
     };
-  }, [hasMoreData, offset]);
+  }, [hasMoreData]);
 
   return (
     <>
@@ -65,7 +65,7 @@ export default function PostListInfinite({ initialPosts }: PostListProps) {
 
       <div className="text-center text-slate-600 mt-5">
         {hasMoreData ? (
-          <div ref={loaderElement}>Loading...</div>
+          <div ref={scrollTrigger}>Loading...</div>
         ) : (
           <p className="text-slate-600">No more posts to load</p>
         )}

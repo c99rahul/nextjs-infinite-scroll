@@ -20,7 +20,7 @@ export default function PostList({ initialPosts }: PostListProps) {
     if (hasMoreData) {
       const apiPosts = await getPosts(offset, POSTS_PER_PAGE);
 
-      if (apiPosts.length < POSTS_PER_PAGE) {
+      if (!apiPosts.length) {
         setHasMoreData(false);
       }
 

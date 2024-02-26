@@ -15,14 +15,14 @@ type PostListProps = {
 export default function PostListInfiniteRIS({ initialPosts }: PostListProps) {
   const [offset, setOffset] = useState(POSTS_PER_PAGE);
   const [posts, setPosts] = useState<Post[]>(initialPosts);
-  const [loaderElement, inView] = useInView();
   const [hasMoreData, setHasMoreData] = useState(true);
+  const [scrollTrigger, isInView] = useInView();
 
   const loadMorePosts = async () => {
     if (hasMoreData) {
       const apiPosts = await getPosts(offset, POSTS_PER_PAGE);
 
-      if (apiPosts.length < POSTS_PER_PAGE) {
+      if (!apiPosts.length) {
         setHasMoreData(false);
       }
 
@@ -32,10 +32,10 @@ export default function PostListInfiniteRIS({ initialPosts }: PostListProps) {
   };
 
   useEffect(() => {
-    if (inView && hasMoreData) {
+    if (isInView && hasMoreData) {
       loadMorePosts();
     }
-  }, [inView, hasMoreData]);
+  }, [isInView, hasMoreData]);
 
   return (
     <>
@@ -46,7 +46,7 @@ export default function PostListInfiniteRIS({ initialPosts }: PostListProps) {
       </div>
 
       <div className="text-center text-slate-600 mt-5">
-        {(hasMoreData && <div ref={loaderElement}>Loading...</div>) || (
+        {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
           <p className="text-slate-600">No more posts to load</p>
         )}
       </div>
