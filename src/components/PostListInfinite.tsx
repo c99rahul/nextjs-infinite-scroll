@@ -53,7 +53,7 @@ export default function PostListInfinite({ initialPosts }: PostListProps) {
         observer.unobserve(scrollTrigger.current);
       }
     };
-  }, [hasMoreData]);
+  }, [hasMoreData, offset]);
 
   return (
     <>
